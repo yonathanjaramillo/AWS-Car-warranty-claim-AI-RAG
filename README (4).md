@@ -5,7 +5,8 @@
 
 
 
-<img width="1920" height="1080" alt="{D9BB8E4F-EC2D-4A8F-BEE9-4E61E0AF4A1F}" src="https://github.com/user-attachments/assets/d630337d-b41a-421c-81ae-ffa1285bc85c" />
+<img width="1920" height="1080" alt="{AF0D770C-13EA-4189-9AD9-44924EC2F4E1}" src="https://github.com/user-attachments/assets/6ba17de2-147a-40b7-9fb9-9ea7bf7f7775" />
+
 
 # AWS Car Warranty Claim AI — RAG · Bedrock · LangGraph · Textract
 
