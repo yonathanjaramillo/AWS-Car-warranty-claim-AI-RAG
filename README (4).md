@@ -9,7 +9,7 @@
 
 # AWS Car Warranty Claim AI — RAG · Bedrock · LangGraph · Textract
 
-> Production-grade AWS-native AI pipeline for automotive warranty claim processing. Built to demonstrate real-world document intelligence, RAG validation, and agentic workflow orchestration on Amazon Bedrock. file:///C:/Users/yonat/OneDrive/Escritorio/warranty%20claim%20app/warranty-claim-ai/frontend/index.html.html
+> Production-grade AWS-native AI pipeline for automotive warranty claim processing. Built to demonstrate real-world document intelligence, RAG validation, and agentic workflow orchestration on Amazon Bedrock. 
 
 ![AWS](https://img.shields.io/badge/AWS-Bedrock-FF9900?style=flat&logo=amazon-aws) ![Python](https://img.shields.io/badge/Python-3.12+-3776AB?style=flat&logo=python) ![FastAPI](https://img.shields.io/badge/FastAPI-0.111-009688?style=flat&logo=fastapi) ![LangGraph](https://img.shields.io/badge/LangGraph-Agent-6366F1?style=flat)
 
