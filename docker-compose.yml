@@ -1,0 +1,56 @@
+version: "3.9"
+
+# WHY DOCKER COMPOSE (tell Mike):
+# Any engineer can clone the repo and run `docker-compose up` to get
+# the full stack running locally — FastAPI + DynamoDB Local.
+# No AWS account needed for development. AWS credentials only needed
+# when you want real Textract/Bedrock calls.
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      # Build for local arch in dev, ARM64 in CI for ECR
+      platform: ${DOCKER_PLATFORM:-linux/amd64}
+    ports:
+      - "8000:8000"
+    environment:
+      - AWS_REGION=us-east-1
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - AWS_SESSION_TOKEN=${AWS_SESSION_TOKEN:-}
+      - CLAIMS_BUCKET=${CLAIMS_BUCKET:-warranty-claim-ai-claims}
+      - DYNAMODB_TABLE=warranty-claim-ai-state
+      - LOG_LEVEL=INFO
+      - ENVIRONMENT=development
+      - API_KEY=dev-key-change-in-prod
+      # Bedrock KB IDs — set after Terraform apply
+      - KB_ID_FORD=${KB_ID_FORD:-}
+      - KB_ID_GM=${KB_ID_GM:-}
+      - KB_ID_TOYOTA=${KB_ID_TOYOTA:-}
+    volumes:
+      - ./app:/app/app   # hot reload in dev
+    command: uvicorn app.api.main:app --host 0.0.0.0 --port 8000 --reload
+    depends_on:
+      - dynamodb-local
+
+  dynamodb-local:
+    image: amazon/dynamodb-local:latest
+    ports:
+      - "8001:8000"
+    command: "-jar DynamoDBLocal.jar -inMemory -sharedDb"
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_API_URL=http://localhost:8000
+      - REACT_APP_API_KEY=dev-key-change-in-prod
+    volumes:
+      - ./frontend/src:/app/src
+    depends_on:
+      - api
